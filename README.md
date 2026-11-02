@@ -8,6 +8,12 @@ The project explores how object detection, multi-object tracking, trajectory ana
 
 ## 1. Project Overview
 
+## Project Documentation
+
+- [Technical Engineering Case Study](PROJECT_CASE_STUDY.md) — Detailed explanation of the engineering approach, architecture, experiments, results, challenges, and future roadmap.
+
+---
+
 Football performance analysis increasingly relies on accurate player tracking and movement data. However, advanced tracking infrastructure can be expensive and difficult to access, particularly for smaller clubs and football organisations.
 
 This project investigates a computer vision-based approach to extracting player movement information from football footage using accessible machine learning tools.
