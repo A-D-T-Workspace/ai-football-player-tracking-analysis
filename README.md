@@ -1,188 +1,206 @@
-AI Football Player Tracking & Performance Analysis
+# AI Football Player Tracking & Performance Analysis
 
-A computer vision pipeline for detecting and tracking football players in broadcast footage, analysing their movement, and generating structured performance outputs.
+An end-to-end computer vision MVP for detecting, tracking, and analysing football players from broadcast match footage.
 
-Project Overview
+The project explores how object detection, multi-object tracking, trajectory analysis, and movement analytics can be combined to extract structured player performance information from football video.
 
-This project explores how computer vision can support football performance analysis by extracting player tracking observations from match footage and converting them into movement metrics and visualisations.
+---
 
-The current MVP uses YOLO for player detection and ByteTrack for multi-object tracking. It processes tracking observations to assess track quality, calculate image-plane movement metrics, and generate trajectory and speed visualisations.
+## 1. Project Overview
 
-Objectives
+Football performance analysis increasingly relies on accurate player tracking and movement data. However, advanced tracking infrastructure can be expensive and difficult to access, particularly for smaller clubs and football organisations.
 
-- Detect players in football broadcast footage.
-- Track detected players across sampled video frames.
-- Investigate tracking consistency and track fragmentation.
-- Calculate movement metrics from player bounding boxes.
-- Filter short or fragmented tracks.
-- Visualise movement speed and player trajectories.
-- Provide a reproducible analysis pipeline.
+This project investigates a computer vision-based approach to extracting player movement information from football footage using accessible machine learning tools.
 
-Technology Stack
+The system combines:
 
-- Python 3.12
-- Ultralytics YOLO
-- ByteTrack
-- OpenCV
-- NumPy
-- Pandas
-- Matplotlib
-- SciPy
-- Pytest
+- YOLO-based player detection
+- ByteTrack multi-object tracking
+- Tracking continuity analysis
+- Player trajectory extraction
+- Movement and speed estimation
+- Track quality assessment
+- Visual analytics and structured CSV outputs
 
-Pipeline Architecture
+The current implementation is a research-oriented MVP. Its movement measurements are calculated in image-plane coordinates rather than calibrated real-world pitch coordinates.
 
-The analysis pipeline follows these stages:
+## 2. Project Objectives
 
-1. Load existing player tracking observations.
-2. Validate tracking data and analyse track quality.
-3. Calculate movement metrics.
-4. Filter usable tracks.
-5. Generate movement-speed visualisations.
-6. Generate player trajectory visualisations.
-7. Save the resulting analysis files.
+The primary objectives are to:
 
-Project Structure
+1. Detect football players in broadcast footage.
+2. Track detected players across sampled video frames.
+3. Investigate tracking continuity and ID fragmentation.
+4. Extract player movement trajectories.
+5. Calculate image-plane movement and speed metrics.
+6. Identify usable and fragmented tracks.
+7. Generate structured outputs for further analysis.
+8. Establish a foundation for future real-world pitch calibration and performance analytics.
 
+## 3. Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| Python | Main programming language |
+| YOLO11n | Object detection |
+| Ultralytics | Detection and tracking framework |
+| ByteTrack | Multi-object tracking |
+| OpenCV | Video processing and computer vision |
+| NumPy | Numerical computation |
+| Pandas | Data processing and analysis |
+| Matplotlib | Data visualisation |
+| Pytest | Automated testing |
+| Git and GitHub | Version control and project publishing |
+
+## 4. System Architecture
+
+The project follows a modular processing pipeline.
+
+```text
+Football Match Video
+        |
+        v
+Video Inspection and Frame Sampling
+        |
+        v
+YOLO Player Detection
+        |
+        v
+ByteTrack Multi-Object Tracking
+        |
+        v
+Tracking Observations
+        |
+        v
+Track Continuity and Quality Analysis
+        |
+        v
+Player Movement Analysis
+        |
+        v
+Trajectory and Speed Visualisation
+        |
+        v
+Structured CSV Outputs and Charts
+```
+
+### Main processing stages
+
+**Stage 1 — Video processing**
+
+Football footage is inspected to establish its resolution, frame rate, duration, and frame sampling requirements.
+
+**Stage 2 — Player detection**
+
+YOLO11n identifies people in sampled frames.
+
+**Stage 3 — Multi-object tracking**
+
+ByteTrack associates detections across frames and assigns tracking IDs.
+
+**Stage 4 — Tracking analysis**
+
+Tracking observations are examined for track duration, continuity, observation gaps, and fragmentation.
+
+**Stage 5 — Movement analysis**
+
+Player positions are used to calculate displacement and image-plane movement speed.
+
+**Stage 6 — Visualisation**
+
+Movement charts and player trajectory plots are generated for analysis.
+
+## 5. Project Structure
+
+```text
 ai-football-player-tracking-analysis/
 │
 ├── data/
 │   └── football_test.mp4
 │
-├── models/
-│
 ├── outputs/
+│   ├── tracking_observations.csv
 │   ├── buffer_60_tracking_observations.csv
 │   ├── buffer_60_track_summary.csv
+│   ├── experiment_log.csv
 │   ├── player_movement_metrics.csv
 │   ├── player_movement_metrics_usable.csv
 │   ├── player_movement_speed.png
-│   └── player_movement_trajectories.png
+│   ├── player_movement_trajectories.png
+│   └── diagnostic images and CSV files
 │
 ├── src/
 │   ├── analyze_tracking.py
-│   ├── movement_analysis.py
-│   ├── visualize_movement.py
-│   ├── visualize_trajectories.py
-│   ├── run_pipeline.py
 │   ├── bytetrack_custom.yaml
-│   └── other diagnostic scripts
+│   ├── create_transition_sheet.py
+│   ├── detect_pitch_intersections.py
+│   ├── diagnose_camera.py
+│   ├── inspect_pitch.py
+│   ├── inspect_trajectory_jumps.py
+│   ├── inspect_video.py
+│   ├── movement_analysis.py
+│   ├── run_pipeline.py
+│   ├── test_detection.py
+│   ├── verify_calibration_frame.py
+│   ├── visualize_movement.py
+│   └── visualize_trajectories.py
 │
 ├── tests/
 │   └── test_movement_analysis.py
 │
-├── requirements.txt
+├── .gitignore
 ├── README.md
-└── .gitignore
+└── requirements.txt
+```
 
-Setup - Clone the repository:
+The YOLO model weights and raw video footage are excluded from GitHub to avoid committing large binary files.
 
-git clone <YOUR_GITHUB_REPOSITORY_URL>
-cd ai-football-player-tracking-analysis
+## 6. Experimental Setup
 
+The initial tracking experiments used a football video with the following properties:
 
-Create and activate a virtual environment:
+| Property | Value |
+|---|---:|
+| Video resolution | 640 × 360 |
+| Original frame rate | 30 FPS |
+| Video duration | Approximately 90.3 minutes |
+| Frames in original video | 162,565 |
+| Experiment duration | 10 seconds |
+| Sampling rate | 15 FPS |
+| Sampled frames | 150 |
 
-in powershell:
-python -m venv .venv
-.venv\Scripts\Activate.ps1
+The tracking experiments were deliberately restricted to a short video segment to allow controlled comparisons between tracker configurations.
 
+### ByteTrack configuration
 
-Install dependencies:
+The selected experimental configuration used:
 
-in powershell:
-pip install -r requirements.txt
+```yaml
+tracker_type: bytetrack
+track_high_thresh: 0.25
+track_low_thresh: 0.1
+new_track_thresh: 0.25
+track_buffer: 60
+match_thresh: 0.8
+fuse_score: True
+```
 
-Place the required input video and YOLO model in their expected locations:
+The extended track buffer was investigated to understand its effect on track continuity when detections temporarily disappear.
 
-- Video: `data/football_test.mp4`
-- Model: `yolo11n.pt`
+## 7. Tracking Experiments
 
-The tracking observations required by the analysis pipeline must also be available in the `outputs/` directory.
+Three configurations were compared.
 
-Running the Pipeline
+| Experiment | Confidence | Tracker | Observations | Unique IDs | Visible ID-set changes |
+|---|---:|---|---:|---:|---:|
+| Baseline | 0.10 | Default ByteTrack | 1,057 | 54 | 101 |
+| Confidence 0.25 | 0.25 | Default ByteTrack | 823 | 62 | 127 |
+| Buffer 60 | 0.10 | Custom ByteTrack | 1,170 | 36 | 89 |
 
-Run:
+### Selected experiment: Buffer 60
 
-python src/run_pipeline.py
+The custom ByteTrack configuration produced:
 
-The pipeline reuses existing tracking observations. It does not rerun YOLO inference.
-
-Generated Outputs
-
-| Output | Description |
-| `buffer_60_track_summary.csv` | Track-level quality and continuity diagnostics |
-| `player_movement_metrics.csv` | Movement metrics for all analysed tracks |
-| `player_movement_metrics_usable.csv` | Metrics for tracks passing quality thresholds |
-| `player_movement_speed.png` | Average image-plane speed visualisation |
-| `player_movement_trajectories.png` | Visual representation of tracked player trajectories |
-
-Movement Metrics:
-
-The movement analysis calculates:
-
-- Number of observations per track
-- First and last observed frame
-- Track duration
-- Total image-plane displacement
-- Average image-plane speed
-- Maximum image-plane speed
-- Track quality classification
-
-Player foot positions are approximated using the bottom-centre point of each detection bounding box.
-
-Large observation gaps are excluded from individual movement calculations to reduce misleading displacement and speed estimates.
-
-Tracking Experiment:
-
-The project evaluated different detection and tracking configurations.
-
-The selected experimental configuration uses:
-
-- YOLO11n
-- ByteTrack
-- Detection confidence threshold: 0.10
-- Track buffer: 60
-- Sampling rate: 15 frames per second
-
-In the selected 10-second experiment, the system produced 1,170 tracking observations across 150 sampled frames and 36 unique track IDs.
-
-These results are experimental diagnostics, not ground-truth tracking accuracy measurements.
-
-Testing - Run the test suite:
-
-in powershell:
-pytest -v
-
-The current test suite covers:
-
-- Foot-position calculation
-- Movement displacement calculation
-- Exclusion of large observation gaps
-- Time calculation using the original video FPS
-- Track-quality thresholds
-
-Current Limitations
-
-This MVP has important limitations:
-
-1. Identity consistency: Track IDs can change when players overlap, become occluded, or move through difficult camera views. Identity-switch accuracy has not been verified against ground truth.
-2. Pitch calibration: Reliable pitch-to-image calibration has not yet been completed.
-3. Physical distance and speed: Movement measurements are currently expressed in pixels and pixels per second. They are not real-world metres or metres per second.
-4. Camera movement: Broadcast camera motion can affect image-plane trajectory and speed measurements.
-5. Track quality: Filtering reduces the influence of fragmented tracks but does not guarantee that every retained track represents one player throughout its duration.
-
-uture Improvements
-
-- Robust pitch landmark detection and camera calibration.
-- Conversion from image coordinates to pitch coordinates.
-- More reliable player identity association.
-- Improved handling of occlusion and camera transitions.
-- Validation against manually annotated ground-truth tracking data.
-- Additional football performance metrics.
-
-Project Status
-
-The current MVP implements a reproducible tracking-analysis pipeline with movement metrics, track-quality diagnostics, visualisations, and automated tests.
-
-The system is a research and engineering prototype. Its current image-plane measurements should not be interpreted as validated professional football performance statistics.
+- 1,170 tracking observations
+- 36 unique tracking IDs
+- 89
