@@ -1,0 +1,4 @@
+experiment_id,confidence_threshold,tracker,video_seconds,sampling_fps,sampled_frames,observations,unique_track_ids,visible_id_set_changes,new_id_appearances,short_tracks_1_3,long_tracks_10_plus,longest_track_frames,model,sampling_interval
+conf_025,0.25,bytetrack.yaml,10,15,150,823,62,127,157,23,25,61,yolo11n.pt,2.0
+baseline,0.1,bytetrack.yaml,10,15,150,1057,54,101,92,13,29,108,yolo11n.pt,2.0
+buffer_60,0.1,src/bytetrack_custom.yaml,10,15,150,1170,36,89,75,4,22,106,yolo11n.pt,2.0

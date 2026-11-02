@@ -1,0 +1,32 @@
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Large model weights
+*.pt
+*.pth
+*.onnx
+
+# Raw video footage
+data/
+
+# Generated tracking preview videos
+outputs/*_preview.mp4
+
+# Temporary files
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
