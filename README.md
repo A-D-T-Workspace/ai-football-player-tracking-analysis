@@ -236,3 +236,11 @@ The horizontal and vertical axes represent image coordinates in pixels.
 These visualisations demonstrate how raw tracking observations can be transformed into structured movement analytics.
 
 The results are based on a short sampled video segment and should not be interpreted as validated full-match player performance statistics.
+
+### 3. Multi-Object Tracking Preview
+
+![Football player detection and tracking preview](outputs/tracking_preview_frame.jpg)
+
+Representative frame showing detected players, bounding boxes, and assigned tracking IDs from the multi-object tracking pipeline.
+
+Tracking IDs are algorithm-assigned identifiers and are not verified persistent player identities. Some label overlap and ID fragmentation remain limitations of the current tracking implementation.
